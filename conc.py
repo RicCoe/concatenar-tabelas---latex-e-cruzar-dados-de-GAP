@@ -1,5 +1,4 @@
 # -*- coding: iso-8859-15 -*-
-import os
 def floatCastVet(vet):
     for r in range(0,len(vet)):
         vet[r]=float(vet[r])
@@ -50,11 +49,6 @@ def gapAndStat(nome_tabela,relax,integer,instancias,nome):#usado para  as soluco
     gap2=[]#definir  o  gap  em  termos  da  solucao inteira e  relaxada, e  inteira e relax and fix, tambem da  relax and  fix
     for i in range(0,len(relax[0])):#para  a solucao relaxada
         try:
-            print(integer[1][i])
-            print(relax[1][i])
-            print(float(integer[0][i]))
-            print(100*float(integer[1][i]-relax[1][i])/float(integer[1][i]))
-            os.system('pause')
             gap.append(100*float(integer[1][i]-relax[1][i])/float(integer[1][i]))
         except ZeroDivisionError:#se a   solucao  inteira  for  nula entao  a relaxada tambem o sera, pois todo fluxo eh positivo
             gap.append(0)
