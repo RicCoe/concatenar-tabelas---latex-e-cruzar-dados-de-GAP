@@ -1,5 +1,10 @@
 # -*- coding: iso-8859-15 -*-
-def tableConcat(tab):
+import os
+def floatCastVet(vet):
+    for r in range(0,len(vet)):
+        vet[r]=float(vet[r])
+    return vet
+def read(tab):
     with open(tab,'r') as file:
         stream=file.readlines()
         for i in range(1,int(len(stream)/2)):
@@ -40,17 +45,16 @@ def tableConcat(tab):
         stream.append(j)
         stream.append(instancias)
         return stream
-
-def intCastVet(vet):
-    for r in range(0,len(vet)):
-        vet[r]=float(vet[r])
-    return vet
-
 def gapAndStat(nome_tabela,relax,integer,instancias,nome):#usado para  as solucoes linear, inteira e integralizada pelo relax and fix
     gap=[]#nome_tabela e  uma  variavel que guarda  o nome da tabela de dados  da solucao inteira
     gap2=[]#definir  o  gap  em  termos  da  solucao inteira e  relaxada, e  inteira e relax and fix, tambem da  relax and  fix
     for i in range(0,len(relax[0])):#para  a solucao relaxada
         try:
+            print(integer[1][i])
+            print(relax[1][i])
+            print(float(integer[0][i]))
+            print(100*float(integer[1][i]-relax[1][i])/float(integer[1][i]))
+            os.system('pause')
             gap.append(100*float(integer[1][i]-relax[1][i])/float(integer[1][i]))
         except ZeroDivisionError:#se a   solucao  inteira  for  nula entao  a relaxada tambem o sera, pois todo fluxo eh positivo
             gap.append(0)
@@ -77,11 +81,15 @@ def gapAndStat(nome_tabela,relax,integer,instancias,nome):#usado para  as soluco
             lat.write(' \\\\ \n')
             lat.write('\hline\n')
 
-a=tableConcat('tabela2.tex')
+
+a=read('int21MbcAlt.tex')
 e=[]
-e.append(intCastVet(a[0]))
-e.append(intCastVet(a[1]))
-u=tableConcat('tabela1.tex')
+e.append(floatCastVet(a[0]))
+e.append(floatCastVet(a[1]))
+u=read('tabela1.tex')
 v=[]
-v.append(intCastVet(u[0]))
-v.append(intCastVet(u[1]))
+v.append(floatCastVet(u[0]))
+v.append(floatCastVet(u[1]))
+print(e)
+print(v)
+gapAndStat('tabela.tex',v,e,u[2],'MBC alterado solução inteira para 21 nós(instâncias c)')
